@@ -13,7 +13,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract Groupfund is ReentrancyGuard {
   using Counters for Counters.Counter;
   
-  
+  /// to allow incrementing ids
   Counters.Counter private pledgeId;
     address[] public owners;
     uint256 targetAmount;
@@ -38,7 +38,7 @@ contract Groupfund is ReentrancyGuard {
         deadline = block.timestamp + _deadline;
 
     }
-
+  // modifier to restrict to only owners
     modifier onlyOwner() {
         for(uint i=0; i<owners.length; i++) {
             owners[i] = owner;
@@ -68,7 +68,7 @@ contract Groupfund is ReentrancyGuard {
         uint32 pledgeDeadline;
         bool pledged;
     }
-
+// owners can input their pledges
 function inputPledge(
     address _pledger,
     uint _amount,
@@ -98,7 +98,7 @@ function inputPledge(
     emit Pledging(msg.sender, _amount);
     return true;
 }
-
+/// returns balance held in this contract
 function getBalance() public view returns(uint256) {
 return address(this).balance;
 }
